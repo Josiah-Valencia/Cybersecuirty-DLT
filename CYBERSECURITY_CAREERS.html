@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersecurity Careers — Build a Safer Digital World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#04110E;
+    --bg-panel:#081E19;
+    --line:#1C4A3E;
+    --mint:#49E8C4;
+    --mint-dim:#1F8F73;
+    --white:#EAF7F2;
+    --muted:#9FC4B8;
+    --shadow-mint: 0 0 40px rgba(73,232,196,0.18);
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      /* page is intentionally dark-themed regardless of system preference,
+         since the subject (a security shield) calls for a control-room feel */
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(73,232,196,0.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(31,143,115,0.10), transparent 55%),
+      var(--bg);
+    color:var(--white);
+    font-family:'Inter', -apple-system, sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* circuit svg background layer */
+  .circuit-bg{position:absolute; inset:0; width:100%; height:100%; z-index:0; opacity:.5;}
+  .circuit-bg line, .circuit-bg circle{stroke:var(--line);}
+  .circuit-bg circle.node{fill:var(--bg);}
+  .circuit-bg .pulse{stroke:var(--mint); opacity:0;}
+
+  header.hero{
+    position:relative;
+    padding: 4.5rem 6vw 6rem;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .topbar{
+    position:relative; z-index:2;
+    display:flex; align-items:center; gap:.85rem;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:.95rem;
+    letter-spacing:.02em;
+    color:var(--muted);
+    margin-bottom:3.5rem;
+  }
+  .topbar .node-icon{width:34px;height:34px;flex:none;}
+  .hero-grid{
+    position:relative; z-index:2;
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap:3rem;
+    align-items:center;
+  }
+  h1.title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    line-height:0.98;
+    margin:0 0 1.4rem;
+    letter-spacing:-0.01em;
+  }
+  h1.title .sub{
+    display:block;
+    color:var(--mint);
+    text-shadow: 0 0 34px rgba(73,232,196,.45);
+  }
+  .hero-copy{
+    max-width:34ch;
+    font-size:1.08rem;
+    color:var(--muted);
+    margin:0 0 2.2rem;
+  }
+  .hero-copy strong{color:var(--white); font-weight:500;}
+  .cta-row{display:flex; gap:1rem; flex-wrap:wrap;}
+  .btn{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:.95rem;
+    padding:.85rem 1.5rem;
+    border-radius:2px;
+    border:1px solid var(--mint);
+    background:transparent;
+    color:var(--mint);
+    cursor:pointer;
+    transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+  .btn.primary{background:var(--mint); color:#04110E;}
+  .btn.primary:hover{box-shadow:var(--shadow-mint);}
+  .btn.ghost:hover{background:rgba(73,232,196,0.08);}
+
+  .shield-wrap{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    aspect-ratio: 1 / 1;
+  }
+  .shield-wrap svg{width:78%; height:78%; filter:drop-shadow(0 0 50px rgba(73,232,196,.25));}
+  .ring{
+    position:absolute; border:1px solid var(--line); border-radius:50%;
+  }
+  .ring.r1{width:100%; height:100%;}
+  .ring.r2{width:78%; height:78%;}
+
+  section{position:relative; z-index:1;}
+
+  .section-head{
+    padding: 3.8rem 6vw 1.5rem;
+    max-width:640px;
+  }
+  .eyebrow-line{
+    display:flex; align-items:center; gap:.7rem;
+    color:var(--mint-dim);
+    font-size:.85rem;
+    font-weight:600;
+    margin-bottom:.9rem;
+  }
+  .eyebrow-line .dash{width:28px;height:1px;background:var(--mint-dim);}
+  h2.section-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(1.6rem, 3vw, 2.2rem);
+    font-weight:700;
+    margin:0 0 .6rem;
+  }
+  .section-desc{color:var(--muted); margin:0; font-size:1rem; max-width:52ch;}
+
+  .careers{
+    padding: 1rem 6vw 4rem;
+    display:flex;
+    flex-direction:column;
+    gap:1.4rem;
+  }
+  .career-card{
+    position:relative;
+    display:grid;
+    grid-template-columns: 128px 1fr;
+    gap:1.8rem;
+    align-items:start;
+    padding:2rem;
+    border:1px solid var(--line);
+    background: linear-gradient(180deg, rgba(73,232,196,0.02), transparent 40%), var(--bg-panel);
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .career-card::before{
+    content:'';
+    position:absolute; inset:0;
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+    padding:1px;
+    background: linear-gradient(135deg, transparent, transparent);
+    pointer-events:none;
+  }
+  .career-card:hover{border-color:var(--mint-dim); transform:translateX(4px);}
+  .career-icon{
+    width:96px; height:96px;
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    background:#04110E;
+  }
+  .career-icon svg{width:56%; height:56%; color:var(--mint);}
+  .career-num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:.78rem;
+    color:var(--mint-dim);
+    letter-spacing:.08em;
+    margin-bottom:.35rem;
+    display:block;
+  }
+  h3.career-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.5rem;
+    font-weight:700;
+    margin:0 0 .8rem;
+  }
+  .career-card ul{
+    margin:0; padding:0; list-style:none;
+    display:flex; flex-direction:column; gap:.55rem;
+  }
+  .career-card li{
+    position:relative;
+    padding-left:1.2rem;
+    color:var(--muted);
+    font-size:.97rem;
+  }
+  .career-card li::before{
+    content:'';
+    position:absolute; left:0; top:.5em;
+    width:6px; height:1px;
+    background:var(--mint);
+  }
+
+  .why{
+    padding: 1rem 6vw 4.5rem;
+  }
+  .why-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border:1px solid var(--line);
+  }
+  .why-item{
+    display:flex; align-items:center; gap:.9rem;
+    padding:1.6rem 1.5rem;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    font-size:.92rem;
+    font-weight:500;
+  }
+  .why-item:nth-child(3n){border-right:none;}
+  .why-item:nth-child(n+4){border-bottom:none;}
+  .check{
+    flex:none; width:26px; height:26px;
+    border:1px solid var(--mint-dim);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .check svg{width:13px; height:13px; color:var(--mint);}
+
+  .paths{
+    padding: 0 6vw 5rem;
+  }
+  .path-track{
+    position:relative;
+    border-left:1px solid var(--line);
+    margin-left:10px;
+    padding-left:2.2rem;
+    display:flex; flex-direction:column; gap:2.1rem;
+  }
+  .path-step{position:relative;}
+  .path-step::before{
+    content:'';
+    position:absolute; left:-2.53rem; top:.35rem;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--mint);
+    box-shadow:0 0 0 4px rgba(73,232,196,0.12);
+  }
+  .path-step h4{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0 0 .3rem; font-size:1.05rem; font-weight:600;
+  }
+  .path-step p{margin:0; color:var(--muted); font-size:.94rem; max-width:56ch;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:2.4rem 6vw;
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap;
+    gap:1rem;
+  }
+  .footer-brand{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:.04em;
+    font-size:.85rem;
+    color:var(--muted);
+  }
+  .footer-brand b{color:var(--white);}
+  .footer-note{font-size:.82rem; color:var(--mint-dim);}
+
+  @media (max-width: 880px){
+    .hero-grid{grid-template-columns:1fr;}
+    .shield-wrap{max-width:280px; margin:0 auto;}
+    .career-card{grid-template-columns:72px 1fr; gap:1.1rem; padding:1.4rem;}
+    .career-icon{width:72px; height:72px;}
+    .why-grid{grid-template-columns:1fr;}
+    .why-item{border-right:none !important;}
+    .why-item:not(:last-child){border-bottom:1px solid var(--line) !important;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    * {animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="hero">
+  <svg class="circuit-bg" id="circuitSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+  <div class="topbar">
+    <svg class="node-icon" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="4" stroke="var(--mint)" stroke-width="1.6"/>
+      <circle cx="6" cy="8" r="2.4" stroke="var(--mint)" stroke-width="1.6"/>
+      <circle cx="6" cy="32" r="2.4" stroke="var(--mint)" stroke-width="1.6"/>
+      <circle cx="34" cy="20" r="2.4" stroke="var(--mint)" stroke-width="1.6"/>
+      <line x1="8" y1="9.4" x2="17.2" y2="18" stroke="var(--mint)" stroke-width="1.4"/>
+      <line x1="8" y1="30.6" x2="17.2" y2="22" stroke="var(--mint)" stroke-width="1.4"/>
+      <line x1="24" y1="20" x2="31.6" y2="20" stroke="var(--mint)" stroke-width="1.4"/>
+    </svg>
+    Cybersecurity Awareness Month
+  </div>
+
+  <div class="hero-grid">
+    <div>
+      <h1 class="title">Cybersecurity<span class="sub">Careers</span></h1>
+      <p class="hero-copy">Every network has a weak point, and every organization needs people who can find it first. <strong>Build a safer digital world</strong> — start your cybersecurity journey today.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="exploreBtn">Explore the roles</button>
+        <button class="btn ghost" id="pathBtn">See the path in</button>
+      </div>
+    </div>
+    <div class="shield-wrap">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#49E8C4"/>
+            <stop offset="1" stop-color="#0E3A2F"/>
+          </linearGradient>
+        </defs>
+        <path d="M100 8 L182 40 V108 C182 158 148 196 100 214 C52 196 18 158 18 108 V40 Z"
+              fill="url(#shieldGrad)" stroke="#49E8C4" stroke-width="2" opacity="0.9"/>
+        <path d="M100 8 L182 40 V108 C182 158 148 196 100 214 C52 196 18 158 18 108 V40 Z"
+              fill="none" stroke="#EAF7F2" stroke-width="1" opacity="0.25"/>
+        <rect x="74" y="100" width="52" height="42" rx="4" fill="#04110E" stroke="#EAF7F2" stroke-width="2"/>
+        <path d="M84 100 V84 a16 16 0 0 1 32 0 v16" fill="none" stroke="#EAF7F2" stroke-width="4"/>
+        <circle cx="100" cy="118" r="6" fill="#49E8C4"/>
+        <rect x="97.5" y="122" width="5" height="12" fill="#49E8C4"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="roles">
+  <div class="section-head">
+    <div class="eyebrow-line"><span class="dash"></span>Three ways in</div>
+    <h2 class="section-title">Find where you fit</h2>
+    <p class="section-desc">These roles cover the full arc of defense — breaking in on purpose, watching in real time, and reconstructing what happened after the fact.</p>
+  </div>
+
+  <div class="careers" id="careersList">
+
+    <article class="career-card">
+      <div class="career-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="8" r="3.2"/>
+          <path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" />
+          <path d="M9 8.4c0-1.6 1.4-3 3-3" opacity=".55"/>
+        </svg>
+      </div>
+      <div>
+        <span class="career-num">Role 01</span>
+        <h3 class="career-title">Ethical Hacker</h3>
+        <ul>
+          <li>Tests systems and networks for security weaknesses.</li>
+          <li>Identifies vulnerabilities before malicious attackers can exploit them.</li>
+          <li>Helps organizations strengthen their security posture.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="career-card">
+      <div class="career-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="3" y="5" width="18" height="12" rx="1.2"/>
+          <path d="M8 21h8M12 17v4"/>
+          <path d="M6.5 13l2.3-3 2 2 3-4 2.7 3" opacity=".7"/>
+        </svg>
+      </div>
+      <div>
+        <span class="career-num">Role 02</span>
+        <h3 class="career-title">Security Operations Center Analyst</h3>
+        <ul>
+          <li>Monitors systems and networks for suspicious activity.</li>
+          <li>Detects and responds to cybersecurity threats and incidents.</li>
+          <li>Helps protect an organization's systems and data.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="career-card">
+      <div class="career-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="10.5" cy="10.5" r="6"/>
+          <line x1="15" y1="15" x2="20.5" y2="20.5"/>
+        </svg>
+      </div>
+      <div>
+        <span class="career-num">Role 03</span>
+        <h3 class="career-title">Forensic Investigator</h3>
+        <ul>
+          <li>Investigates cybersecurity incidents and attacks.</li>
+          <li>Collects and analyzes digital evidence.</li>
+          <li>Helps determine what happened and how the incident occurred.</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="section-head" style="padding-top:0;">
+    <div class="eyebrow-line"><span class="dash"></span>Why now</div>
+    <h2 class="section-title">The field is wide open</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-item"><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg></span>High demand in the digital world</div>
+    <div class="why-item"><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg></span>Make a real impact</div>
+    <div class="why-item"><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg></span>Continuous learning and certification</div>
+    <div class="why-item"><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg></span>Competitive salaries and growth</div>
+    <div class="why-item"><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg></span>Be part of the solution</div>
+    <div class="why-item"><span class="check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5l3 3 7-7"/></svg></span>Work in diverse industries</div>
+  </div>
+</section>
+
+<section class="paths" id="path">
+  <div class="section-head" style="padding-top:0;">
+    <div class="eyebrow-line"><span class="dash"></span>Getting started</div>
+    <h2 class="section-title">A first 90 days</h2>
+  </div>
+  <div class="path-track">
+    <div class="path-step">
+      <h4>Learn the fundamentals</h4>
+      <p>Networking basics, operating systems, and how the web actually works — the ground every specialty is built on.</p>
+    </div>
+    <div class="path-step">
+      <h4>Get hands-on in a lab</h4>
+      <p>Free ranges and capture-the-flag exercises let you practice attacking and defending systems safely.</p>
+    </div>
+    <div class="path-step">
+      <h4>Earn an entry certification</h4>
+      <p>A recognized credential signals baseline competence and opens the door to your first SOC or analyst role.</p>
+    </div>
+    <div class="path-step">
+      <h4>Specialize</h4>
+      <p>Once you're in, follow what pulls you — offense, monitoring, or investigation — and let the role choose itself.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">DLT — <b>Cañada</b> · <b>Montilla</b> · <b>Valencia</b></div>
+  <div class="footer-note">Cybersecurity Awareness Month</div>
+</footer>
+
+<script>
+(function(){
+  // Build a light procedural circuit-line background for the hero, once, at low cost.
+  const svg = document.getElementById('circuitSvg');
+  const ns = 'http://www.w3.org/2000/svg';
+  const w = 1600, h = 900;
+  svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  svg.setAttribute('preserveAspectRatio', 'none');
+
+  function line(x1,y1,x2,y2){
+    const el = document.createElementNS(ns,'line');
+    el.setAttribute('x1',x1); el.setAttribute('y1',y1);
+    el.setAttribute('x2',x2); el.setAttribute('y2',y2);
+    el.setAttribute('stroke-width','1');
+    svg.appendChild(el);
+    return el;
+  }
+  function node(x,y,r){
+    const el = document.createElementNS(ns,'circle');
+    el.setAttribute('cx',x); el.setAttribute('cy',y); el.setAttribute('r',r);
+    el.setAttribute('class','node');
+    el.setAttribute('stroke-width','1');
+    svg.appendChild(el);
+    return el;
+  }
+
+  // Generate a sparse grid of orthogonal circuit traces on the right/top of the hero.
+  const cols = 10, rows = 6;
+  const points = [];
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const jitterX = (Math.random()-0.5)*40;
+      const jitterY = (Math.random()-0.5)*30;
+      points.push({x: (w*0.35) + c*(w*0.62/cols) + jitterX, y: 60 + r*(h*0.85/rows) + jitterY});
+    }
+  }
+  const traces = [];
+  points.forEach((p,i)=>{
+    if(Math.random() > 0.55 && i+1 < points.length && (i+1)%cols!==0){
+      const target = points[i+1];
+      traces.push(line(p.x,p.y,target.x,p.y));
+      traces.push(line(target.x,p.y,target.x,target.y));
+    }
+    if(Math.random() > 0.75){
+      node(p.x,p.y, Math.random()>0.5?3:1.6);
+    }
+  });
+
+  // One orchestrated reveal: traces draw themselves in on load, then a couple of
+  // pulses travel along random paths. This is the single deliberate motion moment.
+  traces.forEach((t,i)=>{
+    const len = Math.hypot(t.x2.baseVal.value - t.x1.baseVal.value, t.y2.baseVal.value - t.y1.baseVal.value) || 1;
+    t.style.strokeDasharray = len;
+    t.style.strokeDashoffset = len;
+    t.style.transition = 'stroke-dashoffset 1.4s ease ' + (i*0.012) + 's';
+    requestAnimationFrame(()=>{ t.style.strokeDashoffset = 0; });
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion && traces.length){
+    function pulse(){
+      const t = traces[Math.floor(Math.random()*traces.length)];
+      if(!t) return;
+      const dup = t.cloneNode();
+      dup.setAttribute('class','pulse');
+      dup.style.transition = 'none';
+      dup.style.strokeDasharray = '6 400';
+      dup.style.strokeDashoffset = '0';
+      svg.appendChild(dup);
+      dup.animate(
+        [{ strokeDashoffset: 0, opacity: 0.9 }, { strokeDashoffset: -400, opacity: 0 }],
+        { duration: 1600, easing: 'linear' }
+      ).onfinish = () => dup.remove();
+    }
+    setInterval(pulse, 900);
+  }
+
+  // Smooth scroll for the two hero CTAs.
+  document.getElementById('exploreBtn').addEventListener('click', () => {
+    document.getElementById('roles').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'});
+  });
+  document.getElementById('pathBtn').addEventListener('click', () => {
+    document.getElementById('path').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'});
+  });
+})();
+</script>
+
+</body>
+</html>
